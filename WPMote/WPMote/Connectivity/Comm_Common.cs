@@ -32,11 +32,12 @@ namespace WPMote.Connectivity
 
         DataWriter objWrite;
         DataReader objRead;
-
+        
         public enum CommMode
         {
             Bluetooth,
             TCP,
+            UDP,
         }
 
         #endregion

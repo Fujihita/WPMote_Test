@@ -31,6 +31,7 @@ namespace WPMote_Desk.Connectivity
         {
             Bluetooth,
             TCP,
+            UDP,
         }
 
         BinaryWriter objWrite;
