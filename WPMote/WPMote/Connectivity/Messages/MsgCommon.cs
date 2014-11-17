@@ -12,9 +12,7 @@ namespace WPMote.Connectivity.Messages
         //Process of adding a message: Add size to dict->Event->Struct->Modify constructor
         
         #region "Common variables"
-
-        internal const int BUFFER_SIZE = 256;
-
+        
         internal static Dictionary<byte, Int16> dictMessages = new Dictionary<byte, Int16> 
         { 
             {100,sizeof(Int16)+1}, //TEST CMD
