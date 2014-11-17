@@ -16,7 +16,7 @@ namespace WPMote.Connectivity
         //Note: this class also handles closing of sockets
     {
         #region "Constants"
-        internal const int BUFFER_SIZE = 256;
+        internal const int BUFFER_SIZE = 128;
         internal const int TIMEOUT_MILLISECONDS = 5000;
         #endregion
 
