@@ -33,7 +33,6 @@ namespace WPMote.Connectivity
         Task tskMessages;
         CancellationTokenSource objCancelSource;
         CancellationToken objCancelToken;
-        double DEFAULT_TIMEOUT = 500;
 
         DataWriter objWrite;
         DataReader objRead;
@@ -113,7 +112,7 @@ namespace WPMote.Connectivity
                     objRead.Dispose();
 
                     //Cancel timeout
-                    tskMessages.Wait(TimeSpan.FromMilliseconds(DEFAULT_TIMEOUT));
+                    tskMessages.Wait(TimeSpan.FromMilliseconds(TIMEOUT_MILLISECONDS));
 
                     objMainSocket.Dispose();
                     objMainSocket = null;

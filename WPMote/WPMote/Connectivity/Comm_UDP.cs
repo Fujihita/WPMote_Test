@@ -55,9 +55,7 @@ namespace WPMote.Connectivity
                 socketEventArg.SetBuffer(buffer, 0, buffer.Length);
                 objClient.SendToAsync(socketEventArg);
             }
-        }
-
-        
+        }        
 
         #endregion
     }
