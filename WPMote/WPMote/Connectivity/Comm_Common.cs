@@ -16,7 +16,7 @@ namespace WPMote.Connectivity
         //Note: this class also handles closing of sockets
     {
         #region "Constants"
-        internal const int BUFFER_SIZE = 128;
+        internal const int BUFFER_SIZE = 127;
         internal const int TIMEOUT_MILLISECONDS = 5000;
         #endregion
 
@@ -187,7 +187,7 @@ namespace WPMote.Connectivity
                             objRead.ReadBytes(bData);
                         }
 
-                        OnMessageReceived.Invoke(intMsgType, bData);
+                        if (OnMessageReceived!=null) OnMessageReceived.Invoke(intMsgType, bData);
                     }
                     catch (OperationCanceledException)
                     {
