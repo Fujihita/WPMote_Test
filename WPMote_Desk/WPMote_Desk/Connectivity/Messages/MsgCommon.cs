@@ -12,9 +12,7 @@ namespace WPMote_Desk.Connectivity.Messages
     abstract class MsgCommon
     {
         #region "Common variables"
-
-        internal const int BUFFER_SIZE = 256;
-
+        
         internal static Dictionary<byte, Int16> dictMessages = new Dictionary<byte, Int16> 
         { 
             {100,sizeof(Int16)+1}, //TEST CMD

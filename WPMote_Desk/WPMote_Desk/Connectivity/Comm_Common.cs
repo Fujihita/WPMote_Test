@@ -15,7 +15,7 @@ namespace WPMote_Desk.Connectivity
     public class Comm_Common
     {
         #region "Constants"
-        internal const int BUFFER_SIZE = 127;
+        internal const int BUFFER_SIZE = 255;
         internal const int TIMEOUT_MILLISECONDS = 5000;
         #endregion
 
