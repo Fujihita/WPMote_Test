@@ -14,7 +14,9 @@ namespace WPMote_Desk.Connectivity
 
         TcpListener objServer;
         TcpClient objClient;
+
         int intPort = 8046;
+        string strHost = "127.0.0.1";
         private Thread tskListen;
 
         public event Connectivity.Comm_Common.ConnectedEvent Connected;
@@ -82,6 +84,14 @@ namespace WPMote_Desk.Connectivity
             }
         }
 
+        public string Host
+        {
+            get
+            {
+                return strHost;
+            }
+        }
+
         #endregion
 
         #region "Public methods"
@@ -112,8 +122,9 @@ namespace WPMote_Desk.Connectivity
             //StopListen(); //TODO: Verify this line
 
             //SETTINGS
-            objClient.ReceiveBufferSize = MsgCommon.BUFFER_SIZE;
-            objClient.SendBufferSize = MsgCommon.BUFFER_SIZE;
+            objClient.ReceiveBufferSize = Comm_Common.BUFFER_SIZE;
+            objClient.SendBufferSize = Comm_Common.BUFFER_SIZE;
+            strHost = ((IPEndPoint)(objClient.Client.RemoteEndPoint)).Address.ToString();
 
             if (Connected != null) Connected(s);
         }

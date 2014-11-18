@@ -15,7 +15,7 @@ namespace WPMote_Desk.Connectivity
     public class Comm_Common
     {
         #region "Constants"
-        internal const int BUFFER_SIZE = 128;
+        internal const int BUFFER_SIZE = 127;
         internal const int TIMEOUT_MILLISECONDS = 5000;
         #endregion
 
@@ -26,6 +26,7 @@ namespace WPMote_Desk.Connectivity
         private CommMode objMode;
         NetworkStream objMainStream;
 
+        Comm_UDP objUDP;
         Comm_Bluetooth objBluetooth;
         Comm_TCP objTCP;
 
@@ -36,7 +37,6 @@ namespace WPMote_Desk.Connectivity
         {
             Bluetooth,
             TCP,
-            UDP,
         }
 
         BinaryWriter objWrite;
@@ -131,8 +131,16 @@ namespace WPMote_Desk.Connectivity
             }
         }
 
-        public void SendBytes(byte[] buffer)
+        public void SendBytes(byte[] buffer, bool bSendUDP = false)
         {
+            if (objMode == CommMode.TCP && !bSendUDP)
+            {
+                //send to connected address, otherwise do a broadcast
+                objUDP.SendBytes((objTCP != null) ? objTCP.Host : "255.255.255.255", buffer);
+            }
+            else
+            {
+            }
             if (objMainStream != null)
             {
                 try

@@ -50,7 +50,7 @@ namespace WPMote.Connectivity
 
         #region "Class constructors"
 
-        public Comm_UDP(int _port)
+        public Comm_UDP()
         {
             objSend = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             objRecv = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -61,8 +61,7 @@ namespace WPMote.Connectivity
         }
 
         #endregion
-
-
+        
         #region "Public methods"
 
         public void SendBytes(string strServerName, byte[] buffer)
@@ -108,7 +107,7 @@ namespace WPMote.Connectivity
 
                     objRecv.ReceiveFromAsync(socketEventArg);
 
-                    tskMessages.Wait(Comm_Common.TIMEOUT_MILLISECONDS);
+                    tskMessages.Wait(Comm_Common.TIMEOUT_MILLISECONDS); //Receive in intervals of TIMEOUT
                 }
             }
         }

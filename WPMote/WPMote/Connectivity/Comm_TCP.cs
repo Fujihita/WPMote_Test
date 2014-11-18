@@ -12,6 +12,7 @@ namespace WPMote.Connectivity
     {
         #region "Common variables"
 
+        string strHost = "127.0.0.1";
         int intPort = 8019;
         StreamSocket objClient;
 
@@ -21,15 +22,19 @@ namespace WPMote.Connectivity
 
         #region "Class properties"
         
+        public string Host
+        {
+            get
+            {
+                return strHost;
+            }
+        }
+
         public int Port
         {
             get
             {
                 return intPort;
-            }
-            set
-            {
-                if (value > 0) intPort = value;
             }
         }
 
@@ -37,15 +42,17 @@ namespace WPMote.Connectivity
 
         #region "Public methods"
         
-        public async void Connect(string strHost, int intPort)
+        public async void Connect(string _host, int _port)
         {
             try
             {
+                strHost = _host;
+                intPort = _port;
+
                 objClient = new StreamSocket();
-                await objClient.ConnectAsync(new HostName(strHost), intPort.ToString());
+                await objClient.ConnectAsync(new HostName(_host), _port.ToString());
 
                 if (Connected != null) Connected(objClient);
-
             }
             catch (Exception ex)
             {

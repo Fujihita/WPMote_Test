@@ -29,6 +29,7 @@ namespace WPMote.Connectivity
 
         Comm_Bluetooth objBluetooth;
         Comm_TCP objTCP;
+        Comm_UDP objUDP;
 
         Task tskMessages;
         CancellationTokenSource objCancelSource;
@@ -41,7 +42,6 @@ namespace WPMote.Connectivity
         {
             Bluetooth,
             TCP,
-            UDP,
         }
 
         #endregion
@@ -82,6 +82,8 @@ namespace WPMote.Connectivity
                     break;
 
                 case CommMode.TCP:
+                    objUDP = new Comm_UDP();
+
                     objTCP = new Comm_TCP();
                     objTCP.Connected += ConnectedHandler;
                     objTCP.Connect(strHost, intTCPPort);
@@ -123,19 +125,27 @@ namespace WPMote.Connectivity
             }
         }
 
-        public async void SendBytes(byte[] buffer)
+        public async void SendBytes(byte[] buffer, bool bSendUDP=false)
         {
-            if ((objMainSocket != null) & (objWrite != null))
+            if (objMode==CommMode.TCP && !bSendUDP)
             {
-                objWrite.WriteBytes(buffer);
+                //send to connected address, otherwise do a broadcast
+                objUDP.SendBytes((objTCP != null) ? objTCP.Host : "255.255.255.255", buffer);
+            }
+            else
+            {
+                if ((objMainSocket != null) & (objWrite != null))
+                {
+                    objWrite.WriteBytes(buffer);
 
-                try
-                {
-                    await objWrite.StoreAsync();
-                }
-                catch
-                {
-                    throw;
+                    try
+                    {
+                        await objWrite.StoreAsync();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
                 }
             }
         }
