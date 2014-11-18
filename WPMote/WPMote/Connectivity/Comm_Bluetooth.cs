@@ -16,7 +16,7 @@ namespace WPMote.Connectivity
         #region "Common variables"
 
         private static readonly Guid gService = Guid.Parse("34B1CF4D-1069-4AD6-89B6-E161D79BE4D8");
-        public List<DeviceInformation> lstDevices;
+        public List<DeviceInformation> lstDevices = new List<DeviceInformation>();
         RfcommDeviceService objClient;
         StreamSocket objSocket;
 
